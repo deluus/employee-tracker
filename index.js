@@ -27,12 +27,8 @@ function loadMainPrompts() {
                     value: "View_Employees_By_Department"
                 },
                 {
-                    name: "view All Employees By Manager",
-                    value: "View_Employees_By_Manager"
-                },
-                {
-                    name: "Add Employee",
-                    value: "Add_Employee"
+                    name: "view All Employees By Role",
+                    value: "View_Employees_By_Role"
                 },
                 {
                     name: "Add Department",
@@ -58,6 +54,48 @@ function loadMainPrompts() {
     .then(res => {
         switch(res.choice) {
             case "View_Employees":
+                viewAllRoles();
+                break;
+        }
+    })
+    .then(res => {
+        switch(res.choice) {
+            case "View_Employees_By_Department":
+                viewAllRoles();
+                break;
+        }
+    })
+    .then(res => {
+        switch(res.choice) {
+            case "View_Employees_By_Role":
+                viewAllRoles();
+                break;
+        }
+    })
+    .then(res => {
+        switch(res.choice) {
+            case "Add_Department":
+                viewAllRoles();
+                break;
+        }
+    })
+    .then(res => {
+        switch(res.choice) {
+            case "Add_Employee":
+                viewAllRoles();
+                break;
+        }
+    })
+    .then(res => {
+        switch(res.choice) {
+            case "Add_Role":
+                viewAllRoles();
+                break;
+        }
+    })
+    .then(res => {
+        switch(res.choice) {
+            case "Update_Role":
                 viewAllRoles();
                 break;
         }
