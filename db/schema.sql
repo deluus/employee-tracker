@@ -4,7 +4,7 @@ CREATE DATABASE employees_db;
 USE employees_db;
 
 -- Create Tables for Department, Role, Employee
-CREATE Table departments (
+CREATE Table department (
     id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
     department_name VARCHAR(30) NOT NULL
 );
@@ -17,7 +17,7 @@ CREATE Table roles (
     PRIMARY KEY(id)
 );
 
-CREATE Table employees (
+CREATE Table employee (
     id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
     first_name VARCHAR(30) NOT NULL,
     last_name VARCHAR(30) NOT NULL,
