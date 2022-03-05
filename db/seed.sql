@@ -1,8 +1,16 @@
---Insert Dummy Data for Each Table
-   --(name)
-    --VALUES
-    --('Management'),
-    --('HVAC');
+INSERT INTO employee (first_name, last_name, role_id, manager_id)
+VALUES ('Deluus', 'Polycarp', 1, NULL);
+INSERT INTO employees (first_name, last_name, role_id, ,manager_id)
+VALUES ('Asa', 'Akira', 2, 1);
+INSERT INTO employee (first_name, last_name, role_id, manager_id)
+VALUES ('Yukie', 'Morrow',2, 2);
+INSERT INTO Employee (first_name, last_name, role_id, manager_id)
+VALUES ('Seo_Jeon', 'Park',2, 3);
+INSERT INTO employee (first_name, last_name, role_id, manager_id)
+VALUES ('Bill', 'Burr',2, 4);
+INSERT INTO employee (first_name, last_name, role_id, manager_id)
+VALUES ('Jo', 'Koy',2, 4);
+
 INSERT INTO department (department_name)
 VALUES ('Management');
 INSERT INTO department(department_name)
@@ -11,20 +19,6 @@ INSERT INTO department (department_name)
 VALUES ('Electrical');
 INSERT INTO department (department_name)
 VALUES ('General Maintenance');
-
-
-INSERT INTO employee (first_name, last_name, role_id, manager_id)
-VALUES ('Deluus', 'Polycarp', 1, NULL);
-INSERT INTO employee (first_name, last_name, role_id, ,manager_id)
-VALUES ('Asa', 'Akira', 2, 1);
-INSERT INTO employee (first_name, last_name, role_id, manager_id)
-VALUES ('Yukie', 'Morrow',2, 2);
-INSERT INTO employee (first_name, last_name, role_id, manager_id)
-VALUES ('Seo_Jeon', 'Park',2, 3);
-INSERT INTO employee (first_name, last_name, role_id, manager_id)
-VALUES ('Bill', 'Burr',2, 4);
-INSERT INTO employee (first_name, last_name, role_id, manager_id)
-VALUES ('Jo', 'Koy',2, 4);
 
 
 INSERT INTO roles (title, salary, department_id)
