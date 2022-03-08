@@ -1,7 +1,7 @@
 INSERT INTO employee (first_name, last_name, role_id, manager_id)
 VALUES ('Deluus', 'Polycarp', 1, NULL);
 INSERT INTO employees (first_name, last_name, role_id, ,manager_id)
-VALUES ('Asa', 'Akira', 2, 1);
+VALUES ('Jon', 'Doe', 2, NULL);
 INSERT INTO employee (first_name, last_name, role_id, manager_id)
 VALUES ('Yukie', 'Morrow',2, 2);
 INSERT INTO Employee (first_name, last_name, role_id, manager_id)
@@ -22,12 +22,14 @@ VALUES ('General Maintenance');
 
 
 INSERT INTO roles (title, salary, department_id)
-VALUES ('General Manager', 100000, 1);
+VALUES ('General Manager', 100000, NULL);
 INSERT INTO roles (title, salary, department_id)
-VALUES ('HVAC Tech', 90000, 2);
+VALUES ('HVAC Tech', 90000, 1);
 INSERT INTO roles (title, salary, department_id)
-VALUES ('Electrician', 89000, 3);
+VALUES ('Electrician', 89000, 2);
 INSERT INTO roles (title, salary, department_id)
-VALUES ('GMT tech', 80000, 4)
+VALUES ('GMT tech', 80000, 3)
+
+
 
     

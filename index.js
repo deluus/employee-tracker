@@ -1,5 +1,6 @@
 const { prompt } = require("inquirer");
-const db = require("./db");
+const { connect } = require("./db/connection");
+const db = require("./db/connection");
 const connection = require('./db/connection');
 
 init(); 
@@ -46,6 +47,10 @@ function loadMainPrompts() {
                     name: "Update Role",
                     value: "Update_Role"
                 },
+                {
+                    name: "Complete",
+                    value: "Complete"
+                },
             
             ]
         }
@@ -54,50 +59,162 @@ function loadMainPrompts() {
     .then(res => {
         switch(res.choice) {
             case "View_Employees":
-                viewAllRoles();
+                viewEmployees();
                 break;
-        }
-    })
-    .then(res => {
-        switch(res.choice) {
             case "View_Employees_By_Department":
-                viewAllRoles();
+                viewDepartment();
                 break;
-        }
-    })
-    .then(res => {
-        switch(res.choice) {
             case "View_Employees_By_Role":
-                viewAllRoles();
+                viewRoles();
                 break;
-        }
-    })
-    .then(res => {
-        switch(res.choice) {
             case "Add_Department":
-                viewAllRoles();
+                addDepartment();
                 break;
-        }
-    })
-    .then(res => {
-        switch(res.choice) {
             case "Add_Employee":
-                viewAllRoles();
+                addEmployee();
                 break;
-        }
-    })
-    .then(res => {
-        switch(res.choice) {
             case "Add_Role":
-                viewAllRoles();
+                addRole();
                 break;
-        }
-    })
-    .then(res => {
-        switch(res.choice) {
             case "Update_Role":
-                viewAllRoles();
+                updateRole();
+                break;
+            case "Complete":
+                complete();
                 break;
         }
     })
 }
+
+const viewEmployees = async () => {
+    console.log('View Employees');
+    try {
+        let query = 'SELECT * FROM employee';
+        connection.query(query, function (err, res) {
+            if (err) throw err;
+            let employeeArray = [];
+            res.forEach(employee => employeeArray.push(employee));
+            console.table(employeeArray);
+            loadMainPrompts();
+        });
+    } catch (err) {
+        console.log(err);
+        loadMainPrompts();
+    };
+}
+
+const viewDepartment = async () => {
+    console.log('View Departments');
+    try {
+        let query = 'SELECT * FROM department';
+        connection.query(query, function (err, res) {
+            if (err) throw err;
+            let departmentArray = [];
+            res.forEach(department => departmentArray.push(department));
+            console.table(departmentArray);
+            loadMainPrompts();
+        });
+    } catch (err) {
+        console.log(err);
+        loadMainPrompts();
+    };
+}
+
+const viewRoles = async () => {
+    console.log('view Roles');
+    try {
+        let query = 'SELECT * FROM roles';
+        connection.query(query, function (err, res) {
+            if (err) throw err;
+            let roleArray = [];
+            res.forEach(role => roleArray.push(role));
+            console.table(roleArray);
+            loadMainPrompts();
+        });
+    } catch (err) {
+        console.log(err);
+        loadMainPrompts();
+    };
+}
+
+const addEmployee = async = () => {
+    console.log('Enter Employees Information');
+    prompt([
+        {
+            type:'input',
+            name: 'firstName',
+            message: 'What is the employees first name?'
+        },
+        {
+            type: 'input',
+            name: 'lastName',
+            message: 'What is the employees last name?'
+        }
+    ])
+    .then(res => {
+        let firstName = res.firstName;
+        let lastName = res.lastName;
+        let sql = 'SELECT * FROM roles'
+
+        connection.query(sql, function(err, res) {
+            if(err) throw err;
+            let roles = res.map(({id, title}) => ({
+                name: title,
+                value: id
+            }));
+
+            prompt([
+                {
+                    type: 'list',
+                    name: 'roleId',
+                    message: 'What is the new employees role?',
+                    choices: roles
+                }
+            ])
+            .then(res => {
+                let roleId = res.roleId;
+                let sql2 = 'SELECT * FROM employee'
+
+                connection.query(sql2, function(err, res) {
+                    if(err) throw err;
+                    let employees = res.map(({id, first_name, last_name})=>({
+                        name: `${first_name} ${last_name}`,
+                        value: id
+                    }));
+
+                    employees.unshift({name: 'None', value: null});
+
+                    prompt([
+                       { 
+                           type: 'list',
+                           name: 'managerId',
+                           message: 'Who is the new employees manager?',
+                           choices: employees
+                        }
+                    ])
+                    .then(res => {
+                        let employee = {
+                            first_name: firstName,
+                            last_name: lastName,
+                            role_id: roleId,
+                            manager_id: res.managerId
+                        }
+                        connection.query('INSERT into employee SET?', employee, function(err, res) {
+                            if(err) throw err;
+                        })                    
+                    })
+                    .then(() => {
+                       console.log(`${firstName} ${lastName} Added to the Database`);
+                    })
+                    .then(() => [
+                        loadMainPrompts()
+                    ])
+                })
+            })
+        })
+    })
+}
+
+//connection.query("UPDATE employee SET role_id = ? where id = ?", role_id, employeeId, function(err, res) {
+   // if(err) throw err;
+//})
