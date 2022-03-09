@@ -231,119 +231,119 @@ const addDepartment = (async = () => {
 
       department.unshift({ name: "None", value: null });
 
+      //   let newDept = connection.query ("INSERT INTO department SET")
+      //   newDept,
+      //   function (err, res) {
+      //     if (err) throw err;
+      //   }
+
       loadMainPrompts();
     });
   });
 });
 
 const addRole = (async = () => {
-    console.log("Enter Role Information");
-    prompt([
-      {
-        type: "input",
-        name: "role title",
-        message: "What is the new role?",
-      },
-      {
-        type: "input",
-        name: "salary",
-        message: "What is salary?",
-      },
-    ]).then((res) => {
-      let roleName = res.roleName;
-      let salary = res.salary;
-      let sql4 = "SELECT * FROM roles";
-  
-      connection.query(sql4, function (err, res) {
-        if (err) throw err;
-        let department = res.map(({ id, title }) => ({
-          name: title,
-          value: id,
-        }));
-  
-        prompt([
-          {
-            type: "list",
-            name: "department_name",
-            message: "Which department will the role be assigned to ?",
-            choices: department,
-          },
-        ]).then((res) => {
-          let roleId = res.roleId;
-          let sql5 = "SELECT * FROM department";
-  
-          connection.query(sql5, function (err, res) {
-            if (err) throw err;
-            let employees = res.map(({ id, title, salary }) => ({
-              name: `${title} ${salary}`,
-              value: id,
-            }));
-  
-            employees.unshift({ name: "None", value: null });
+  console.log("Enter Role Information");
+  prompt([
+    {
+      type: "input",
+      name: "role title",
+      message: "What is the new role?",
+    },
+    {
+      type: "input",
+      name: "salary",
+      message: "What is salary?",
+    },
+  ]).then((res) => {
+    let roleName = res.roleName;
+    let salary = res.salary;
+    let sql4 = "SELECT * FROM roles";
 
-            loadMainPrompts();
-        })
-  
-        //     prompt([
-        //       {
-        //         type: "list",
-        //         name: "managerId",
-        //         message: "Who is the new employees manager?",
-        //         choices: employees,
-        //       },
-        //     ])
-        //       .then((res) => {
-        //         let employee = {
-        //           first_name: firstName,
-        //           last_name: lastName,
-        //           role_id: roleId,
-        //           manager_id: res.managerId,
-        //         };
-        //         connection.query(
-        //           "INSERT into employee SET?",
-        //           employee,
-        //           function (err, res) {
-        //             if (err) throw err;
-        //           }
-        //         );
-        //       })
-        //       .then(() => {
-        //         console.log(`${firstName} ${lastName} Added to the Database`);
-        //       })
-        //       .then(() => [loadMainPrompts()]);
-        //   });
+    connection.query(sql4, function (err, res) {
+      if (err) throw err;
+      let department = res.map(({ id, title }) => ({
+        name: title,
+        value: id,
+      }));
+
+      prompt([
+        {
+          type: "list",
+          name: "department_name",
+          message: "Which department will the role be assigned to ?",
+          choices: department,
+        },
+      ]).then((res) => {
+        let roleId = res.roleId;
+        let sql5 = "SELECT * FROM department";
+
+        connection.query(sql5, function (err, res) {
+          if (err) throw err;
+          let employees = res.map(({ id, title, salary }) => ({
+            name: `${title} ${salary}`,
+            value: id,
+          }));
+
+          employees.unshift({ name: "None", value: null });
+
+          loadMainPrompts();
         });
       });
+      
     });
   });
+});
+const updateRole = async () => {
+    console.log("Employee Update");
+    prompt([
+      {
+        name: "employee",
+        type: "list",
+        choices: employee,
+        //  res.map((first_name,last_name) => {
+        //   return {
+        //     name: first_name + " " + last_name,
+        //     value: id,
+        //   };
+        // }),
+        message: "Please choose an employee to update.",
+      },
+    ])
+    .then((res) => {
+      let role_id = res.updateId;
+      let sql6 = "SELECT * FROM role";
 
-//           .then(() => {
-//             console.log(`${deptName} Added to the Database`);
-//           })
-//            .then(() => [loadMainPrompts()]);
-//         }
+    // })
+    
+    connection.query("UPDATE employee SET role_id = ? where id = ?",sql6, role_id, employeeId, function(err, res) {
+      if(err) throw err;
+    }
+    )}
+    )}
 
-//       )}
-//     )}
-// )
+//    connection.query("SELECT * FROM role");
 
-// const addDepartment = async () => {
-//   try {
-//     console.log("Add department");
-
-//     let answer = await inquirer.prompt([
+//     let roleSelection = inquirer.prompt([
 //       {
-//         name: "deptName",
-//         type: "input",
-//         message: "What is the name of your new department?",
+//         name: "role",
+//         type: "list",
+//         choices: roles.map((roleName) => {
+//           return {
+//             name: roleName.title,
+//             value: roleName.id,
+//           };
+//         }),
+//         message: "Please select the role to update the employee with.",
 //       },
 //     ]);
 
-//     let result = await connection.query("INSERT INTO department SET ?", {
-//       department_name: answer.deptName,
-//     });
+//     let result = connection.query("UPDATE employee SET ? WHERE ?", [
+//       { role_id: roleSelection.role },
+//       { id: employeeSelection.employee },
+//     ]);
 
-//     console.log(`${answer.deptName} added successfully to departments.\n`);
+//     console.log(`The role was successfully updated.\n`);
 //     loadMainPrompts();
 //   } catch (err) {
 //     console.log(err);
@@ -351,57 +351,15 @@ const addRole = (async = () => {
 //   }
 // };
 
-// const addRole = async () => {
-//     try {
-//         console.log('Add Role');
 
-//         let departments = await connection.query("SELECT * FROM department")
-
-//         let answer = await inquirer.prompt([
-//             {
-//                 name: 'title',
-//                 type: 'input',
-//                 message: 'What is the name of your new role?'
-//             },
-//             {
-//                 name: 'salary',
-//                 type: 'input',
-//                 message: 'What salary will this role provide?'
-//             },
-//             {
-//                 name: 'departmentId',
-//                 type: 'list',
-//                 choices: departments.map((departmentId) => {
-//                     return {
-//                         name: departmentId.department_name,
-//                         value: departmentId.id
-//                     }
-//                 }),
-//                 message: 'What department ID is this role associated with?',
-//             }
-//         ]);
-
-//         let chosenDepartment;
-//         for (i = 0; i < departments.length; i++) {
-//             if(departments[i].department_id === answer.choice) {
-//                 chosenDepartment = departments[i];
-//             };
-//         }
-//         let result = await connection.query("INSERT INTO role SET ?", {
-//             title: answer.title,
-//             salary: answer.salary,
-//             department_id: answer.departmentId
-//         })
-
-//         console.log(`${answer.title} role added successfully.\n`)
-//         initialAction();
-
-//     } catch (err) {
-//         console.log(err);
-//         initialAction();
-//     };
-// }
-
-//connection.query("UPDATE employee SET role_id = ? where id = ?", role_id, employeeId, function(err, res) {
-// if(err) throw err;
-//})
+// const updateEmployee = (async () => {
+//   prompt ([
+//     {
+//       type: "list",
+//       name: "employee",
+//       message: "which employee would you like to update?",
+//       choices: employee,
+//     },
+//   ]).then((res) => {
+//     let = update = res.update;
+//     let sql6 = "SELECT * FROM employee";
