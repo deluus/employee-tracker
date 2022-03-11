@@ -55,11 +55,6 @@ Fulfilling any of the following can add up to 20 points to your grade. Note that
 
 ## Review
 
-You are required to submit BOTH of the following for review:
+* Walk through Video -
 
-* A walkthrough video demonstrating the functionality of the application.
-
-  - 
-
-* The URL of the GitHub repository, with a unique name and a README describing the project.
-
+* GIT HUB URL - https://github.com/deluus/employee-tracker
