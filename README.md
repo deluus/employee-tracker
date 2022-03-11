@@ -55,6 +55,10 @@ Fulfilling any of the following can add up to 20 points to your grade. Note that
 
 ## Review
 
+
+https://user-images.githubusercontent.com/91577221/157907588-21a1e36b-9821-4a41-8478-886d51aa6074.MP4
+
+
 * Walk through Video -
 
 * GIT HUB URL - https://github.com/deluus/employee-tracker
